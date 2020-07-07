@@ -1,0 +1,45 @@
+.Overview {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    height: 500px;
+    width: 600px;
+    border-radius: 6%;
+    background-color: #FFFFFB;
+}
+.landing-mode-enter {
+    opacity: 0;
+    transform: translateX(-13vh) scale(0.9);
+}
+.landing-mode-enter-active {
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity 300ms, transform 450ms;
+}
+.landing-mode-exit {
+    opacity: 1;
+    transform: translateX(0vh);
+}
+.landing-mode-exit-active {
+    opacity: 0;
+    transform: translateX(-13vh) scale(0.9);
+    transition: opacity 300ms, transform 450ms;
+}
+.mode-enter {
+    opacity: 0;
+    transform: translateX(13vh) scale(0.9);
+}
+.mode-enter-active {
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity 300ms, transform 450ms;
+}
+.mode-exit {
+    opacity: 1;
+    transform: translateX(0vh);
+}
+.mode-exit-active {
+    opacity: 0;
+    transform: translateX(13vh) scale(0.9);
+    transition: opacity 300ms, transform 450ms;
+}

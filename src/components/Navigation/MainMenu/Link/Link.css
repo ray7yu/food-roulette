@@ -1,0 +1,8 @@
+.Link {
+    padding: 0 7px 0 7px;
+    color: #525252;
+}
+.Link:hover {
+    color: black;
+    cursor: pointer;
+}

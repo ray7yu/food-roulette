@@ -1,0 +1,10 @@
+.MainMenu {
+    padding-left: 60px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.Title {
+    padding: 0 7px 0 7px;
+    font-size: 1.3em;
+}
