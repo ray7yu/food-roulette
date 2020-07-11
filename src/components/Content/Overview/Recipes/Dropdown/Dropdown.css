@@ -1,0 +1,57 @@
+.Dropdown {
+    width: 400px;
+    border: 1px solid lightgray;
+}
+.Dropdown-btn {
+    background-color: #3498DB;
+    color: white;
+    padding: 10px;
+    width: inherit;
+    height: 35px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+.Dropdown-btn:hover {
+    background-color: #2980B9;
+}
+.Dropdown-btn:focus {
+    outline: none;
+}
+.Dropdown-content {
+    position: absolute;
+    width: inherit;
+    max-height: 14em;
+    border-radius: 5px;
+    margin: 2px;
+    background-color: #f1f1f1;
+    overflow: scroll;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+.Dropdown-content:hover .Selected{
+    background-color: #f1f1f1;
+}
+.Dropdown-content:hover .Selected:hover {
+    background-color: skyblue;
+}
+.Selected {
+    font-weight: bold;
+    background-color: skyblue;
+}
+.Dropdown-content div {
+    text-align: left;
+    color: black;
+    padding: 6px;
+    font-size: medium;
+    /* width: 100%; */
+}
+
+.Dropdown-content div:hover {
+    background-color: skyblue;
+    cursor: pointer;
+}
+.Input {
+    float: right;
+}
+

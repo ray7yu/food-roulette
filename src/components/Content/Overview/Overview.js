@@ -50,7 +50,13 @@ const Overview = () => {
         >
             <Restaurants handler={returnMode}/>
         </CSSTransition>
-        {showRecipes && <Recipes handler={returnMode}/>}
+        <CSSTransition
+        in={showRecipes}
+        timeout={300}
+        classNames="mode"
+        unmountOnExit>
+            <Recipes handler={returnMode}/>
+        </CSSTransition>
     </div>
     );
 }
