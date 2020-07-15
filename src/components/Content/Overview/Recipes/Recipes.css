@@ -5,3 +5,127 @@
     padding: 5px;
     margin: 5px;
 }
+.Search {
+    display: flex;
+    flex-direction: row;
+    text-align: left;
+    padding-left: 10px;
+    background-color: green;
+    color: white;
+    width: 490px;
+    padding-top: 8px;
+    height: 30px;
+    font-size: 16px;
+    border: none;
+    border: 1px solid lightgray;
+}
+.Input-Section {
+    width: 50%;
+    text-align: left;
+}
+.Input-Full {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    text-align: left;
+}
+.Input-Header {
+    flex-grow: 1;
+    text-align: right;
+    margin-right: 5px;
+}
+.Searchbar {
+    margin-left: 10px;
+    width: 75%;
+    height: 20px;
+    outline: none;
+}
+.Small-Search {
+    margin-left: 5px;
+    margin-right: 5px;
+    width: 40px;
+    height: 20px;
+    outline: none;
+}
+.Modal {
+    margin: auto;
+    border-radius: 5px;
+    position: relative;
+    bottom: 250px;
+    width: 400px;
+    height: 200px;
+    z-index: 1;
+    background-color: white;
+}
+.Modal-Title {
+    padding-top: 15px;
+    font-size: 35px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    margin-bottom: 5px;
+}
+.modal-enter {
+    position: relative;
+    opacity: 0;
+    bottom: 35px;
+    width: 500px;
+    transform: translateY(0px);
+}
+.modal-enter-active {
+    width: 400px;
+    opacity: 1;
+    height: 200px;
+    transform: translateY(-215px);
+    transition: all 450ms;
+}
+.modal-exit {
+    width: 400px;
+    opacity: 1;
+    height: 200px;
+    transform: translateY(0vh);
+}
+.modal-exit-active {
+    position: relative;
+    opacity: 0;
+    bottom: 35px;
+    width: 500px;
+    transform: translateY(0vh);
+    transition: all 450ms;
+}
+.Backdrop {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    opacity: 0.7;
+    background-color: gray;
+}
+.backdrop-enter {
+    opacity: 0;
+}
+.backdrop-enter-active {
+    opacity: 0.7;
+    transition: all 450ms;
+}
+.backdrop-exit {
+    opacity: 0.7;
+}
+.backdrop-exit-active {
+    opacity: 0;
+    transition: all 450ms;
+}
+.Yes {
+    margin-top: 70px;
+    margin-right: 20px;
+    padding: 8px 40px;
+    background-color: lightgreen;
+    border: 1px solid gray;
+    border-radius: 10px;
+}
+.No {
+    padding: 8px 40px;
+    background-color: palevioletred;
+    border: 1px solid gray;
+    border-radius: 10px;
+}
