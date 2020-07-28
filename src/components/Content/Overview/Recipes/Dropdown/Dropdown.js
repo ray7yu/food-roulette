@@ -15,10 +15,11 @@ const Dropdown = props => {
                             {choice}
                         </div>
                         :
-                        <div key={choice} >
+                        <div key={choice} onClick={() => props.changeChoiceSelected(props.type, choice)}>
                             <label>
                                 {choice}
-                                <input className='Input' type='checkbox' name={choice} onChange={() => props.changeChoiceSelected(props.type, choice)}/>
+                                <input className='Input' type='checkbox' name={choice} onChange={() => props.changeChoiceSelected(props.type, choice)} 
+                                    checked={props.choiceList.includes(choice) ? true : false}/>
                             </label>
                         </div>
                         );

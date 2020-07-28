@@ -99,7 +99,7 @@
     left: 0;
     right: 0;
     opacity: 0.7;
-    background-color: gray;
+    background-color: #FFFFFB;
 }
 .backdrop-enter {
     opacity: 0;
@@ -123,9 +123,15 @@
     border: 1px solid gray;
     border-radius: 10px;
 }
+.Yes:hover {
+    cursor: pointer;
+}
 .No {
     padding: 8px 40px;
     background-color: palevioletred;
     border: 1px solid gray;
     border-radius: 10px;
+}
+.No:hover {
+    cursor: pointer;
 }

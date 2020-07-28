@@ -1,0 +1,9 @@
+.About {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    height: 600px;
+    width: 800px;
+    border-radius: 6%;
+    background-color: #FFFFFB;
+}
