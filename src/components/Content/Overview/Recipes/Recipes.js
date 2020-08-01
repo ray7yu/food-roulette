@@ -1,15 +1,15 @@
 import React, {useState} from 'react';
+import axios from 'axios';
 import './Recipes.css';
 import Dropdown from './Dropdown/Dropdown';
+import List from './List/List';
 import { CSSTransition} from 'react-transition-group';
 require('dotenv').config()
 const Recipes = props => {
     let meals = ['Breakfast', 'Lunch', 'Dinner', 'Snack']
-    let diets = ['Balanced','High-Protein','High-Fiber','Low-Fat','Low-Carb','Low-Sodium']
-    let restrictions = ['Alcohol-free','Immune-Supportive','Celery-free','Crustacean-free','Dairy-free','Egg-free','Fish-free','FODMAP-free',
-                        'Gluten-free','Keto-Friendly','Kidney-Friendly','Kosher','No-oil','No-sugar','Paleo','Peanut-free','Pescatarian',
-                        'Pork-free','Red Meat-free','Sesame-free','Shellfish-free','Soy-free','Low sugar','Tree Nut-free','Vegan','Vegetarian']
-    const [q, setQ] = useState('')
+    let diets = ['Balanced','High-Protein','Low-Fat','Low-Carb']
+    let restrictions = ['Alcohol-free','Peanut-free','Sugar-conscious','Tree-Nut-free','Vegan','Vegetarian']
+    const [q, setQ] = useState('.')
     const [maxIngred, setMaxIngred] = useState(0)
     const [calories, setCalories] = useState([0, 0])
     const [cookTime, setCookTime] = useState([0, 0])
@@ -21,7 +21,8 @@ const Recipes = props => {
     const [showModal, setShowModal] = useState(false)
     const [showResult, setShowResult] = useState(false)
     const [showOrder, setShowOrder] = useState(true)
-    
+    const [inputError, setInputError] = useState(false)
+    const [URL, setURL] = useState('')
     
     const changeChoiceSelected = (type, choice) => {
         switch(type) {
@@ -36,9 +37,7 @@ const Recipes = props => {
                     const newRestrictions = restrictSelected.filter(restrict => restrict !== choice);
                     setRestrictSelected(newRestrictions)
                 } else{
-                    if (restrictSelected.length < 8) {
-                        setRestrictSelected([...restrictSelected, choice])
-                    }
+                    setRestrictSelected([...restrictSelected, choice])
                 }
                 break;
             default:
@@ -74,6 +73,21 @@ const Recipes = props => {
         orderReducer,
         { data: [], isLoading: false, isError: false }
     );
+    const handleFetchRecipes = React.useCallback(async () => {
+        dispatchOrder({type:"ORDER_FETCH_INIT"});
+        try {
+            const result = await axios.get(URL);
+            dispatchOrder({
+                type: "ORDER_FETCH_SUCCESS",
+                payload: result.data.hits
+            })
+        } catch {
+            dispatchOrder({type: 'ORDER_FETCH_FAILURE'})
+        }
+    }, [URL])
+    React.useEffect(() => {
+        handleFetchRecipes();
+    }, [handleFetchRecipes]);
     const handleOrderSubmit = () => {
         if (q === '') {
             throw new Error("Query is required")
@@ -81,11 +95,12 @@ const Recipes = props => {
         setShowModal(false);
         setTimeout(() => setShowOrder(false),300);
         setTimeout(() => setShowResult(true),600);
-        // let url = buildURL();
-      };
+        let url = buildURL();
+        // setURL(url)
+    };
     const buildURL = () => {;
-        let url = "https://api.edamam.com/search?"
-        url += "q=" + q + "&app_id=" + process.env.APP_ID + "&app_key=" + process.env.APP_KEY;
+        let url = "https://api.edamam.com/search?";
+        url += "q=" + q + "&app_id=" + process.env.REACT_APP_ID + "&app_key=" + process.env.REACT_APP_KEY;
         if (maxIngred > 0) {
             url += "&ingr=" + maxIngred.toString();
         }
@@ -93,11 +108,28 @@ const Recipes = props => {
             url += "&diet=" + dietSelected.toLowerCase();
         }
         if(restrictSelected.length !== 0) {
-            restrictSelected.forEach(e => url += "&health=" + e);
+            restrictSelected.forEach(e => url += "&health=" + e.toLowerCase());
         }
-        
-        url += "";
-        // let url = "https://api.edamam.com/search?q=chicken&app_id=${YOUR_APP_ID}&app_key=${YOUR_APP_KEY}&from=0&to=3&calories=591-722&health=alcohol-free"
+        if(calories[0] > 0 || calories[1] > 0) {
+            url += "&calories=";
+            if(calories[0] > 0 && calories[1] > 0){
+                url += calories[0].toString() + "-" + calories[1].toString();
+            } else if(calories[0] > 0){
+                url += calories[0].toString() + "+";
+            } else {
+                url += calories[1].toString()
+            }
+        }
+        if(cookTime[0] > 0 || cookTime[1] > 0) {
+            url += "&time=";
+            if(cookTime[0] > 0 && cookTime[1] > 0){
+                url += cookTime[0].toString() + "-" + cookTime[1].toString();
+            } else if(cookTime[0] > 0){
+                url += cookTime[0].toString() + "+";
+            } else {
+                url += cookTime[1].toString()
+            }
+        }
         return url;
     }
     const changeShowDrop = type => {
@@ -106,6 +138,23 @@ const Recipes = props => {
         } else{
             setShowDrop(type)
         }
+    }
+    const checkValidOrder = () => {
+        if(q === "" || q === "."){
+            setInputError(true)
+        } else{
+            setShowModal(true)
+        }
+    }
+    React.useEffect(() => {
+        if(q === ""){
+            setInputError(true)
+        } else {
+            setInputError(false)
+        }  
+    }, [q])
+    const checkInput = event => {
+        setQ(event.target.value)
     }
     return (
         <>
@@ -118,8 +167,8 @@ const Recipes = props => {
                     <span className='Option'>Choose your Recipe</span>
                     <button className="Button" onClick={() => props.handler("RECIPE")}>Return</button>
                     <div className="Search">
-                        <label htmlFor='Search'>Search Term:</label>
-                        <input type='text' name='Search' className='Searchbar' onChange={event=>setQ(event.target.value)}/>
+                        <label htmlFor='Search'>Search Term (REQUIRED):</label>
+                        <input type='text' name='Search' className={inputError ? 'Searchbar Invalid': 'Searchbar'} onChange={event=>checkInput(event)}/>
                     </div>
                     <div className="Search">
                         <div className='Input-Section'>
@@ -150,27 +199,25 @@ const Recipes = props => {
                     choices={diets} changeChoiceSelected={changeChoiceSelected} changeShowDrop={changeShowDrop}/>
                     <Dropdown showDrop={showDrop==='restriction' ? true:false} type={'restriction'} choiceSelected={'Health Restrictions'} choices={restrictions}
                     choiceList={restrictSelected} changeChoiceSelected={changeChoiceSelected} changeShowDrop={changeShowDrop} />
-                    <div>
-                        <button className='Button' onClick={() => setShowModal(!showModal)}>Place Order</button>
-                        <CSSTransition
-                        in={showModal}
-                        timeout={450}
-                        classNames="modal"
-                        unmountOnExit>
-                            <div className='Modal'>
-                                <div className='Modal-Title'>Confirm?</div>
-                                <button className='Yes' onClick={handleOrderSubmit}>Yes</button>
-                                <button className='No' onClick={() => setShowModal(false)}>No</button>
-                            </div>
-                        </CSSTransition>
-                        <CSSTransition
-                        in={showModal}
-                        timeout={450}
-                        classNames="backdrop"
-                        unmountOnExit>
-                            <div className='Backdrop' onClick={() => setShowModal(false)}/>
-                        </CSSTransition>
-                    </div>
+                    <button className='Button' onClick={checkValidOrder}>Place Order</button>
+                    <CSSTransition
+                    in={showModal}
+                    timeout={450}
+                    classNames="modal"
+                    unmountOnExit>
+                        <div className='Modal'>
+                            <div className='Modal-Title'>Confirm?</div>
+                            <button className='Yes' onClick={handleOrderSubmit}>Yes</button>
+                            <button className='No' onClick={() => setShowModal(false)}>No</button>
+                        </div>
+                    </CSSTransition>
+                    <CSSTransition
+                    in={showModal}
+                    timeout={450}
+                    classNames="backdrop"
+                    unmountOnExit>
+                        <div className='Backdrop' onClick={() => setShowModal(false)}/>
+                    </CSSTransition>
                 </div>
             </CSSTransition>
             <CSSTransition
@@ -185,9 +232,7 @@ const Recipes = props => {
                         Loading
                     </div>
                     :
-                    <div>
-                        Hi
-                    </div>
+                    <List hits={order.data}/>
                     }
                 </div>
             </CSSTransition>

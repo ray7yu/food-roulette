@@ -1,23 +1,26 @@
 .Recipes {
+    box-sizing: border-box;
     display: flex;
     align-items: center;
     flex-direction: column;
     padding: 5px;
-    margin: 5px;
+    overflow: hidden;
 }
 .Search {
+    box-sizing: border-box;
     display: flex;
     flex-direction: row;
     text-align: left;
     padding-left: 10px;
-    background-color: green;
+    background-color: #e7c9a9;
     color: white;
-    width: 490px;
+    width: 600px;
     padding-top: 8px;
-    height: 30px;
+    height: 40px;
     font-size: 16px;
     border: none;
-    border: 1px solid lightgray;
+    margin: 1px 0;
+    border-radius: 5px;
 }
 .Input-Section {
     width: 50%;
@@ -35,10 +38,15 @@
     margin-right: 5px;
 }
 .Searchbar {
+    box-sizing: border-box;
     margin-left: 10px;
-    width: 75%;
-    height: 20px;
+    width: 275px;
+    height: 26px;
     outline: none;
+    border: none;
+}
+.Searchbar.Invalid {
+    border: 1px solid #ff0000;
 }
 .Small-Search {
     margin-left: 5px;
@@ -46,11 +54,12 @@
     width: 40px;
     height: 20px;
     outline: none;
+    border: none;
 }
 .Modal {
-    margin: auto;
+    box-sizing: border-box;
     border-radius: 5px;
-    position: relative;
+    position: absolute;
     bottom: 250px;
     width: 400px;
     height: 200px;
@@ -65,10 +74,10 @@
     margin-bottom: 5px;
 }
 .modal-enter {
-    position: relative;
     opacity: 0;
     bottom: 35px;
-    width: 500px;
+    width: 600px;
+    height: 100px;
     transform: translateY(0px);
 }
 .modal-enter-active {
@@ -85,10 +94,10 @@
     transform: translateY(0vh);
 }
 .modal-exit-active {
-    position: relative;
     opacity: 0;
+    height: 100px;
     bottom: 35px;
-    width: 500px;
+    width: 600px;
     transform: translateY(0vh);
     transition: all 450ms;
 }
