@@ -74,6 +74,7 @@ const List = props => {
         }
     ];
     const selectResult = uri => {
+        // const recipe = props.hits.find(x => x.recipe.uri === uri)
         const recipe = fakeData.find(x => x.recipe.uri === uri)
         setCurrRecipe(recipe)
     };
@@ -82,16 +83,44 @@ const List = props => {
             {
             (currRecipe !== "") ? 
             <div className="Dish">
-                <span className='Option'>Recipe Description</span>
-                <div className="Entry" onClick={() => setCurrRecipe("")}>Return To List</div>
-                <img src={currRecipe.recipe.image} alt="Recipe" className="DishImage"/>
-                <div>Labels {currRecipe.recipe.dietLabels}</div>
-                <div>Description {currRecipe.recipe.ingredientLines.join(', ')}</div>
-                <div>Links {currRecipe.recipe.url}</div>
+                <span className='Option'>{currRecipe.recipe.label}</span>
+                <div className="Button" onClick={() => setCurrRecipe("")}>
+                    <div className="Return">
+                        Return To List
+                    </div>
+                </div>
+                <div className="Upper-Section">
+                    <div className="Image">
+                        <img src={currRecipe.recipe.image} alt="Recipe" className="DishImage"/>
+                    </div>
+                    <div className="Labels">
+                        <div className="Label-Entry"><b>Diet Labels</b>: {currRecipe.recipe.dietLabels.join(', ')}</div>
+                        <div className="Label-Entry"><b>Health Labels</b>: {currRecipe.recipe.healthLabels.join(', ')}</div>
+                        <div className="Label-Entry"><b>Cautions</b>: {currRecipe.recipe.cautions.join(', ')}</div>
+                    </div>
+                </div>
+                <div className="Lower-Section">
+                    <div className="Text-Entry"><b>Ingredients</b>: {currRecipe.recipe.ingredientLines.join(', ')}</div>
+                    <div className="Text-Entry">
+                        <b>Source</b>: <a href={currRecipe.recipe.url} target="_blank" rel = "noopener noreferrer">
+                            Original Recipe
+                        </a>
+                    </div>
+                    <div className="Text-Entry">
+                        <b>More nutrient facts</b>: <a href={currRecipe.recipe.shareAs} target="_blank" rel = "noopener noreferrer">
+                            Edamam Database
+                        </a>
+                    </div>
+                </div>
             </div>
             :
             <div className="List">
                 <span className='Option'>Search Results</span>
+                <div className="Button" onClick={() => props.returnSearch()}>
+                    <div className="Return">
+                        Return and search for new recipe?
+                    </div>
+                </div>
                 {fakeData.map(entry => {
                     return(
                         <div className="Entry" key={entry.recipe.uri} onClick={() => selectResult(entry.recipe.uri)}>

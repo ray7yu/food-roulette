@@ -5,14 +5,14 @@ import {faHamburger, faCompass} from "@fortawesome/free-solid-svg-icons";
 const Landing = props => 
     <div className="Landing">
         <span className="Option">Welcome!</span>
-        <button className="Button" onClick={() => props.handler("RESTAURANT")}>
+        {/* <button className="Button" onClick={() => props.handler("RESTAURANT")}>
             <div className="ButtonHeader">
-                <div className="ButtonIcon">Restaurants</div><FontAwesomeIcon icon={faCompass} className="ButtonIcon"/>
+                <div className="ButtonIcon">Restaurants</div><FontAwesomeIcon icon={faCompass}/>
             </div>
-        </button>
+        </button> */}
         <button className="Button" onClick={() => props.handler("RECIPE")}>
             <div className="ButtonHeader">
-                <div className="ButtonIcon">Recipes</div><FontAwesomeIcon icon={faHamburger} className="ButtonIcon"/>
+                <div className="ButtonIcon">Recipes</div><FontAwesomeIcon icon={faHamburger}/>
             </div>
         </button>
     </div>

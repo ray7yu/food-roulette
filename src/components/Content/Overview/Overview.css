@@ -6,7 +6,7 @@
     height: 600px;
     width: 800px;
     border-radius: 6%;
-    background-color: #FFFFFB;
+    background-color: rgba(255, 255, 255, 0.7);
 }
 .landing-mode-enter {
     opacity: 0;

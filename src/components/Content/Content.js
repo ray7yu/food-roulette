@@ -1,9 +1,7 @@
 import React from 'react';
 import {
-    BrowserRouter as Router,
     Switch,
     Route,
-    Link
 } from 'react-router-dom';
 import './Content.css'
 import Overview from './Overview/Overview'
@@ -28,7 +26,6 @@ const Content = () =>
                     <About />
                 </Route>
                 <Route exact path='/' component={withAuth(Overview)} />
-                {/* <Route exact path='/order' component={withAuth()}/> */}
             </Switch>
         </div>
     </>

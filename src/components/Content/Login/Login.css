@@ -1,9 +1,25 @@
 .Login {
     display: flex;
-    flex-direction: row;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
     height: 600px;
     width: 800px;
     border-radius: 6%;
-    background-color: #FFFFFB;
+    background-color: rgba(255, 255, 255, 0.7);
+}
+.Login-Form {
+    display: flex;
+    flex-direction: column;
+}
+.Login-Error {
+    color: red;
+}
+.Credential {
+    height: 40px;
+    margin: 3px 0;
+    padding-left: 10px;
+    font-size: 15px;
+}
+.Register-Link {
+    margin-top: 5px;
 }

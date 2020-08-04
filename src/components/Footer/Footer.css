@@ -1,10 +1,28 @@
 .Footer {
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
     height: 6%;
-    width: 100%;
+    width: 95%;
     font-size: 1.2em;
     margin: 0 0 0 0;
     background-color: #FFFFFB;
+}
+.Source {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 0 5px;
+    text-align: center;
+    letter-spacing: 1.1px;
+}
+.Linkedin {
+    color: #0e76a8;
+    font-size: 30px;
+}
+.Github {
+    font-size: 30px;
+}
+.Further:hover {
+    cursor: pointer;
 }

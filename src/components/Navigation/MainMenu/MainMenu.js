@@ -1,7 +1,6 @@
 import React from 'react';
 import './MainMenu.css'
 import {
-    BrowserRouter as Router,
     NavLink
 } from 'react-router-dom';
 import Link from './Link/Link'

@@ -41,15 +41,30 @@ app.get('/checkToken', withAuth, function(req, res) {
 });
 app.post('/api/register', function(req, res) {
     const {email, password} = req.body;
-    const user = new User({email, password});
-    user.save(function(err) {
-        if (err) {
+    const newUser = new User({email, password});
+    User.findOne({email}, function(err, user){
+        if(err) {
+            console.log(err);
             res.status(500)
-                .send("Error registering new user, please try again.");
+                .json({
+                    error: 'Internal error please try again'
+                });
+        } else if(!user){
+            newUser.save(function(err) {
+                if (err) {
+                    res.status(500)
+                        .send("Error registering new user, please try again.");
+                } else {
+                    res.status(200).send("Welcome to the club!");
+                }
+            });
         } else {
-            res.status(200).send("Welcome to the club!");
+            res.status(400)
+                .json({
+                    error: 'Cannot have same email'
+                });
         }
-    });
+    })
 });
 app.post('/api/authenticate', function(req, res) {
     const {email, password} = req.body;

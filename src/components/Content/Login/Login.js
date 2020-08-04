@@ -1,10 +1,11 @@
 import React from 'react';
 import './Login.css'
-import {useHistory} from 'react-router-dom';
-const Login = props => {
+import {useHistory, Link} from 'react-router-dom';
+const Login = () => {
     let history = useHistory()
     const [email, setEmail] = React.useState('')
     const [password, setPassword] = React.useState('')
+    const [errorMsg, setErrorMsg] = React.useState('')
     const handleInputChange = (event) => {
         const {value, name} = event.target;
         if (name === "email") {
@@ -32,20 +33,22 @@ const Login = props => {
         })
         .catch(err => {
             console.log(err);
-            alert('Error logging in please try again!');
+            setErrorMsg('Error logging in please try again!');
         });
     }
     return(
         <>
             <div className="Login">
-                <form onSubmit={onSubmit}>
-                    <h1>Login Below!</h1>
+                <div className="Option">Login!</div>
+                <div className="Login-Error">{errorMsg}</div>
+                <form onSubmit={onSubmit} className="Login-Form">
                     <input
                         type="email"
                         name="email"
                         placeholder="Enter email"
                         value={email}
                         onChange={handleInputChange}
+                        className="Credential"
                         required
                     />
                     <input
@@ -54,10 +57,12 @@ const Login = props => {
                         placeholder="Enter password"
                         value={password}
                         onChange={handleInputChange}
+                        className="Credential"
                         required
                     />
-                    <input type="submit" value="Submit"/>
+                    <input type="submit" value="Submit" className="Button"/>
                 </form>
+                <div className="Register-Link">Not registered? <Link to="/signup">Click Here</Link></div>
             </div>
         </>
     );

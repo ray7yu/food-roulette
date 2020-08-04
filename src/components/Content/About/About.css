@@ -1,9 +1,25 @@
 .About {
     display: flex;
-    flex-direction: row;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
     height: 600px;
     width: 800px;
     border-radius: 6%;
-    background-color: #FFFFFB;
+    background-color: rgba(255, 255, 255, 0.7);
+}
+.About-Image {
+    height: 300px;
+    width: 400px;
+    border-radius: 5px;
+}
+.Description {
+    font-size: 20px;
+    text-align: left;
+    padding: 0 25px;
+}
+.Citation {
+    width: 100%;
+    margin-top: 30px;
+    flex-grow: 1;
+    padding-top: 90px;
 }

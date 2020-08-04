@@ -4,46 +4,62 @@ import './Recipes.css';
 import Dropdown from './Dropdown/Dropdown';
 import List from './List/List';
 import { CSSTransition} from 'react-transition-group';
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faSearch} from "@fortawesome/free-solid-svg-icons";
 require('dotenv').config()
 const Recipes = props => {
-    let meals = ['Breakfast', 'Lunch', 'Dinner', 'Snack']
-    let diets = ['Balanced','High-Protein','Low-Fat','Low-Carb']
-    let restrictions = ['Alcohol-free','Peanut-free','Sugar-conscious','Tree-Nut-free','Vegan','Vegetarian']
-    const [q, setQ] = useState('.')
-    const [maxIngred, setMaxIngred] = useState(0)
-    const [calories, setCalories] = useState([0, 0])
-    const [cookTime, setCookTime] = useState([0, 0])
-    const [mealSelected, setMealSelected] = useState('')
-    const [dietSelected, setDietSelected] = useState('')
-    const [restrictSelected, setRestrictSelected] = useState([])
-
-    const [showDrop, setShowDrop] = useState('')
-    const [showModal, setShowModal] = useState(false)
-    const [showResult, setShowResult] = useState(false)
-    const [showOrder, setShowOrder] = useState(true)
-    const [inputError, setInputError] = useState(false)
-    const [URL, setURL] = useState('')
+    let meals = ['Breakfast', 'Lunch', 'Dinner', 'Snack'];
+    let diets = ['Balanced','High-Protein','Low-Fat','Low-Carb'];
+    let restrictions = ['Alcohol-free','Peanut-free','Sugar-conscious','Tree-Nut-free','Vegan','Vegetarian'];
+    const [q, setQ] = useState('.');
+    const [maxIngred, setMaxIngred] = useState(0);
+    const [calories, setCalories] = useState([0, 0]);
+    const [cookTime, setCookTime] = useState([0, 0]);
+    const [mealSelected, setMealSelected] = useState('');
+    const [dietSelected, setDietSelected] = useState('');
+    const [restrictSelected, setRestrictSelected] = useState([]);
+    const [showDrop, setShowDrop] = useState('');
+    const [showModal, setShowModal] = useState(false);
+    const [showResult, setShowResult] = useState(false);
+    const [showOrder, setShowOrder] = useState(true);
+    const [inputError, setInputError] = useState(false);
+    const [URL, setURL] = useState('');
     
     const changeChoiceSelected = (type, choice) => {
         switch(type) {
             case 'meal':
-                setMealSelected(choice)
+                if (choice === mealSelected) {
+                    setMealSelected('');
+                } else {
+                    setMealSelected(choice);
+                }
                 break;
             case 'diet':
-                setDietSelected(choice)
+                if (choice === dietSelected) {
+                    setDietSelected('');
+                } else {
+                    setDietSelected(choice);
+                }
                 break;
             case 'restriction':
                 if(restrictSelected.includes(choice)){
                     const newRestrictions = restrictSelected.filter(restrict => restrict !== choice);
-                    setRestrictSelected(newRestrictions)
+                    setRestrictSelected(newRestrictions);
                 } else{
-                    setRestrictSelected([...restrictSelected, choice])
+                    setRestrictSelected([...restrictSelected, choice]);
                 }
                 break;
             default:
-                throw ReferenceError
+                throw ReferenceError;
         };
-    }
+    };
+    const changeShowDrop = type => {
+        if(type === showDrop){
+            setShowDrop('');
+        } else{
+            setShowDrop(type);
+        }
+    };
     const orderReducer = (state, action) => {
         switch (action.type) {
           case 'ORDER_FETCH_INIT':
@@ -85,12 +101,9 @@ const Recipes = props => {
             dispatchOrder({type: 'ORDER_FETCH_FAILURE'})
         }
     }, [URL])
-    React.useEffect(() => {
-        handleFetchRecipes();
-    }, [handleFetchRecipes]);
     const handleOrderSubmit = () => {
         if (q === '') {
-            throw new Error("Query is required")
+            throw new Error("Query is required");
         }
         setShowModal(false);
         setTimeout(() => setShowOrder(false),300);
@@ -98,7 +111,11 @@ const Recipes = props => {
         let url = buildURL();
         // setURL(url)
     };
-    const buildURL = () => {;
+    const returnSearch = () => {
+        setTimeout(() => setShowResult(false),0);
+        setTimeout(() => setShowOrder(true),300);
+    };
+    const buildURL = () => {
         let url = "https://api.edamam.com/search?";
         url += "q=" + q + "&app_id=" + process.env.REACT_APP_ID + "&app_key=" + process.env.REACT_APP_KEY;
         if (maxIngred > 0) {
@@ -131,31 +148,27 @@ const Recipes = props => {
             }
         }
         return url;
-    }
-    const changeShowDrop = type => {
-        if(type === showDrop){
-            setShowDrop('')
-        } else{
-            setShowDrop(type)
-        }
-    }
+    };
     const checkValidOrder = () => {
         if(q === "" || q === "."){
-            setInputError(true)
+            setInputError(true);
         } else{
-            setShowModal(true)
+            setShowModal(true);
         }
-    }
+    };
+    const checkInput = event => {
+        setQ(event.target.value);
+    };
+    React.useEffect(() => {
+        handleFetchRecipes();
+    }, [handleFetchRecipes]);
     React.useEffect(() => {
         if(q === ""){
-            setInputError(true)
+            setInputError(true);
         } else {
-            setInputError(false)
+            setInputError(false);
         }  
-    }, [q])
-    const checkInput = event => {
-        setQ(event.target.value)
-    }
+    }, [q]);
     return (
         <>
             <CSSTransition
@@ -175,7 +188,7 @@ const Recipes = props => {
                             Max Ingredients:
                             <input type='number' name='Max-Ingred' className='Small-Search' min='1' onChange={event=>setMaxIngred(event.target.value)}/>
                         </div>
-                        <div className='Input-Section'>
+                        <div className='Input-Section-Right'>
                             Calories: <strong>Min</strong>
                             <input type='number' name='Calories-min' className='Small-Search' min='0' onChange={event=>setCalories([event.target.value, calories[1]])}/>
                             <strong>Max</strong>
@@ -199,7 +212,11 @@ const Recipes = props => {
                     choices={diets} changeChoiceSelected={changeChoiceSelected} changeShowDrop={changeShowDrop}/>
                     <Dropdown showDrop={showDrop==='restriction' ? true:false} type={'restriction'} choiceSelected={'Health Restrictions'} choices={restrictions}
                     choiceList={restrictSelected} changeChoiceSelected={changeChoiceSelected} changeShowDrop={changeShowDrop} />
-                    <button className='Button' onClick={checkValidOrder}>Place Order</button>
+                    <button className='Button' onClick={checkValidOrder}>
+                        <div className="ButtonHeader">
+                            <div className="ButtonIcon">Place Order</div><FontAwesomeIcon icon={faSearch}/>
+                        </div>
+                    </button>
                     <CSSTransition
                     in={showModal}
                     timeout={450}
@@ -228,11 +245,9 @@ const Recipes = props => {
                 <div>
                     {order.isError && 'Error loading recipe'}
                     {order.isLoading ? 
-                    <div>
-                        Loading
-                    </div>
+                    <div>Loading</div>
                     :
-                    <List hits={order.data}/>
+                    <List hits={order.data} returnSearch={returnSearch}/>
                     }
                 </div>
             </CSSTransition>
