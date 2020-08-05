@@ -6,7 +6,7 @@ import List from './List/List';
 import { CSSTransition} from 'react-transition-group';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faSearch} from "@fortawesome/free-solid-svg-icons";
-require('dotenv').config()
+// require('dotenv').config()
 const Recipes = props => {
     let meals = ['Breakfast', 'Lunch', 'Dinner', 'Snack'];
     let diets = ['Balanced','High-Protein','Low-Fat','Low-Carb'];

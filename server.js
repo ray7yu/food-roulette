@@ -7,7 +7,7 @@ const cookieParser = require('cookie-parser');
 const User = require('./user');
 const withAuth = require('./middleware');
 const app = express();
-require('dotenv').config()
+// require('dotenv').config()
 
 const secret = process.env.SECRET;
 
