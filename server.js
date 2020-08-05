@@ -25,12 +25,13 @@ const connection = mongoose.connection;
 connection.once("open", function() {
     console.log("Connection with MongoDB was successful");
 });
+app.use(express.static(path.join(__dirname, 'client/build')));
 app.get('/ping', function(req, res) {
     return res.send('pong');
 });
-app.get('/', function(req, res) {
-    res.sendFile(path.join(__dirname, 'build', 'index.html'));
-});
+// app.get('/', function(req, res) {
+//     res.sendFile(path.join(__dirname, 'build', 'index.html'));
+// });
 app.get('/api/welcome', function(req, res) {
     res.send('Welcome!');
 });
@@ -105,5 +106,8 @@ app.post('/api/authenticate', function(req, res) {
             })
         }
     })
+});
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname+'/client/build/index.html'));
 })
 app.listen(process.env.PORT || 8080);
