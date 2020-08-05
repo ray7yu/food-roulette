@@ -1,10 +1,7 @@
 import React from 'react';
 import './Users.css'
 import Link from '../MainMenu/Link/Link'
-import {
-    BrowserRouter as Router,
-    NavLink
-} from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 const Users = props => 
     <>
         <div className="Users">

@@ -5,7 +5,6 @@ import Restaurants from './Restaurants/Restaurants';
 import Recipes from './Recipes/Recipes';
 import { CSSTransition} from 'react-transition-group';
 const Overview = () => {
-    const [message, setMessage] = React.useState('Loading...')
     const [showLanding, setShowLanding] = useState(true);
     const [showRestaurants, setShowRestaurants] = useState(false);
     const [showRecipes, setShowRecipes] = useState(false);
@@ -35,35 +34,29 @@ const Overview = () => {
     }
     return (
         <div className="Overview">
-            {message === 'Error!' ? 
-            {message}
-            :
-            <>
-                <CSSTransition
-                in={showLanding}
-                timeout={300}
-                classNames="landing-mode"
-                unmountOnExit
-                >
-                    <Landing handler={changeMode}/>
-                </CSSTransition>
-                <CSSTransition
-                in={showRestaurants}
-                timeout={300}
-                classNames="mode"
-                unmountOnExit
-                >
-                    <Restaurants handler={returnMode}/>
-                </CSSTransition>
-                <CSSTransition
-                in={showRecipes}
-                timeout={300}
-                classNames="mode"
-                unmountOnExit>
-                    <Recipes handler={returnMode}/>
-                </CSSTransition>
-            </>
-            }
+            <CSSTransition
+            in={showLanding}
+            timeout={300}
+            classNames="landing-mode"
+            unmountOnExit
+            >
+                <Landing handler={changeMode}/>
+            </CSSTransition>
+            <CSSTransition
+            in={showRestaurants}
+            timeout={300}
+            classNames="mode"
+            unmountOnExit
+            >
+                <Restaurants handler={returnMode}/>
+            </CSSTransition>
+            <CSSTransition
+            in={showRecipes}
+            timeout={300}
+            classNames="mode"
+            unmountOnExit>
+                <Recipes handler={returnMode}/>
+            </CSSTransition>
         </div>
     );
 }
