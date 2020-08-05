@@ -109,7 +109,7 @@ const Recipes = props => {
         setTimeout(() => setShowOrder(false),300);
         setTimeout(() => setShowResult(true),600);
         let url = buildURL();
-        // setURL(url)
+        setURL(url)
     };
     const returnSearch = () => {
         setTimeout(() => setShowResult(false),0);
@@ -186,13 +186,18 @@ const Recipes = props => {
                     <div className="Search">
                         <div className='Input-Section'>
                             Max Ingredients:
-                            <input type='number' name='Max-Ingred' className='Small-Search' min='1' onChange={event=>setMaxIngred(event.target.value)}/>
+                            <input type='number' name='Max-Ingred' className='Small-Search' min='1' 
+                            onChange={event=>setMaxIngred(event.target.value)}/>
                         </div>
                         <div className='Input-Section-Right'>
                             Calories: <strong>Min</strong>
-                            <input type='number' name='Calories-min' className='Small-Search' min='0' onChange={event=>setCalories([event.target.value, calories[1]])}/>
+                            <input type='number' name='Calories-min' 
+                            className='Small-Search' min='0' 
+                            onChange={event=>setCalories([event.target.value, calories[1]])}/>
                             <strong>Max</strong>
-                            <input type='number' name='Calories-max' className='Small-Search' min='0' onChange={event=>setCalories([calories[0], event.target.value])}/>
+                            <input type='number' name='Calories-max' 
+                            className='Small-Search' min='0' 
+                            onChange={event=>setCalories([calories[0], event.target.value])}/>
                         </div>
                     </div>
                     <div className="Search">
@@ -200,9 +205,13 @@ const Recipes = props => {
                             Prep + Cook Time (minutes): 
                             <div className='Input-Header'>
                                 <strong>Min</strong>
-                                <input type='number' name='Time-min' className='Small-Search' min='0' onChange={event=>setCookTime([event.target.value, cookTime[1]])}/>
+                                <input type='number' name='Time-min' 
+                                className='Small-Search' min='0' 
+                                onChange={event=>setCookTime([event.target.value, cookTime[1]])}/>
                                 <strong>Max</strong>
-                                <input type='number' name='Time-max' className='Small-Search' min='1' onChange={event=>setCookTime([cookTime[0], event.target.value])}/>
+                                <input type='number' name='Time-max' 
+                                className='Small-Search' min='1' 
+                                onChange={event=>setCookTime([cookTime[0], event.target.value])}/>
                             </div>
                         </div>
                     </div>

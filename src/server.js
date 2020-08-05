@@ -16,9 +16,11 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'build')));
-mongoose.connect("mongodb://127.0.0.1:27017/details", {
+// "mongodb://127.0.0.1:27017/details"
+mongoose.connect(process.env.DATABASE_URL, {
   useNewUrlParser: true,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
+  useCreateIndex: true
 });
 const connection = mongoose.connection;
 connection.once("open", function() {
@@ -30,7 +32,7 @@ app.get('/ping', function(req, res) {
 app.get('/', function(req, res) {
     res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
-app.get('/api/signup', function(req, res) {
+app.get('/api/welcome', function(req, res) {
     res.send('Welcome!');
 });
 app.get('/api/secret', withAuth, function(req, res) {

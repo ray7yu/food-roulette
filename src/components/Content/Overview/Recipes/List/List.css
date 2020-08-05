@@ -77,3 +77,7 @@
 .Text-Entry {
     margin: 0 0 5px 0;
 }
+.No-Results {
+    margin-top: 20px;
+    font-size: 25px;
+}

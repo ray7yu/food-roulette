@@ -31,7 +31,7 @@
     outline: none;
     border: none;
 }
-.Searchbar.Invalid {
+.Invalid {
     border: 1px solid #ff0000;
 }
 .Small-Search {
