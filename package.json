@@ -1,17 +1,17 @@
 {
-    "name": "food-roulette",
-    "version": "1.0.0",
-    "main": "server.js",
-    "dependencies": {
-      "bcrypt": "^5.0.0",
-      "cookie-parser": "^1.4.5",
-      "dotenv": "^8.2.0",
-      "express": "^4.17.1",
-      "jsonwebtoken": "^8.5.1",
-      "mongoose": "^5.9.25"
-    },
-    "scripts": {
-      "start": "node server.js",
-      "heroku-postbuild": "cd client && npm install && npm run build"
-    }
+  "name": "food-roulette",
+  "version": "1.0.0",
+  "main": "server.js",
+  "dependencies": {
+    "bcrypt": "^5.0.0",
+    "cookie-parser": "^1.4.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.9.25"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "heroku-postbuild": "cd client && npm install && npm run build"
   }
+}

@@ -6,6 +6,7 @@ import List from './List/List';
 import { CSSTransition} from 'react-transition-group';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faSearch} from "@fortawesome/free-solid-svg-icons";
+import Spinner from 'react-bootstrap/Spinner';
 // require('dotenv').config()
 const Recipes = props => {
     let meals = ['Breakfast', 'Lunch', 'Dinner', 'Snack'];
@@ -254,7 +255,7 @@ const Recipes = props => {
                 <div>
                     {order.isError && 'Error loading recipe'}
                     {order.isLoading ? 
-                    <div>Loading</div>
+                    <Spinner animation="border" variant="success" />
                     :
                     <List hits={order.data} returnSearch={returnSearch}/>
                     }

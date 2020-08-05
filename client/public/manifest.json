@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Food Roulette",
+  "short_name": "foodroulette",
+  "name": "A Food Roulette",
   "icons": [
     {
       "src": "favicon.ico",
